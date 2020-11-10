@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/', ['App\Http\Controllers\UserController', 'index']);
+    Route::post('add/{id}', ['App\Http\Controllers\UserController','add'])->name('add');
+    Route::delete('delete/{id}', ['App\Http\Controllers\UserController', 'delete'])->name('delete');
+
+});
 
 Auth::routes();
 
